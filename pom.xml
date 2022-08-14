@@ -10,6 +10,8 @@
     <modules>
         <module>river-tools-common</module>
         <module>river-tools-file</module>
+        <module>river-tools-thread</module>
+        <module>mock-common</module>
     </modules>
     <packaging>pom</packaging>
 
