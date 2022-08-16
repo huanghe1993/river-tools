@@ -11,7 +11,8 @@
         <module>river-tools-common</module>
         <module>river-tools-file</module>
         <module>river-tools-thread</module>
-        <module>mock-common</module>
+        <module>river-mock-common</module>
+        <module>river-tools-core</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -63,5 +64,11 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

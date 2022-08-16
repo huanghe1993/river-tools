@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>river-tools-parent</artifactId>
+        <groupId>com.huanghe</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>river-tools-core</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.huanghe</groupId>
+            <artifactId>river-tools-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.huanghe</groupId>
+            <artifactId>river-tools-thread</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 此插件必须放在父 POM 中  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!--
+                            设置将依赖整合到一个自定义名称的 JAR 包。
+                            如果不设置此项，依赖将整合到 Maven 无插件时的默认 JAR 包，并生成一个前缀为 original- 的无依赖 JAR 包
+                             -->
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <!-- 设置生成的 JAR 包后缀名 -->
+                            <shadedClassifierName>shaded-with-dependencies</shadedClassifierName>
+                            <!-- 设置程序运行入口 -->
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                </transformer>
+                            </transformers>
+
+                            <!-- 过滤器排除配置文件-->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <includes>
+                                        <include>com/huanghe/**</include>
+                                        <include>META-INF/**</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+
+                            <!-- 设置 JAR 包输出目录 -->
+                            <outputDirectory>${project.build.directory}/#maven-shade-plugin</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
